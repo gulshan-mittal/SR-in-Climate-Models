@@ -1,0 +1,1686 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 10page%
+\topmargin 9pheight%
+\rightmargin 10page%
+\bottommargin 9pheight%
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Stochastic Resonance in a simple climate model
+\end_layout
+
+\begin_layout Author
+Adrian J Alva
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{Research student, Center for Computational Natural Sciences and
+ Bioinformatics, IIIT Hyderabad}
+\end_layout
+
+\end_inset
+
+,
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+Gulshan Kumar
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{Research student, Robotics Research Center, IIIT Hyderabad}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+Contrary to conventional wisdom, background noise can play a beneficial
+ role in many natural phenomena.
+ In this brief report, we study the mechanism of Stochastic resonance (SR)
+ in which adding noise to a nonlinear system's input signal can enhance
+ the coherence between the output response and the signal (by coherence
+ we mean the degree to which the response 
+\emph on
+mimcs 
+\emph default
+the driving signal).
+ SR was discovered in trying to explain the periodicity of the Earth's glacial-i
+nterglacial cycles which seem to have no powerful enough driving mechanism.
+ We simulate a toy model of the climate and show that white noise can drive
+ state transitions in climate between glacial and interglacial states.
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Earth's climate is a 
+\emph on
+complex system 
+\emph default
+which has posed major modelling challenges to researchers for decades.
+ Past features of the climate can be extracted from measurements of deep
+ sea ice cores by isotope analysis.
+ One such feature is the so called 100,000 year cycles observed in paleoclimatic
+ records.
+ These cycles are characterized by phases of sudden warming followed by
+ a slow decrease in temperature.
+ A major challenge in climatology has been to explain this regularity in
+ such glaciation cycles.
+ One important observation is that the periodicity of ice ages happens to
+ be 
+\emph on
+in phase 
+\emph default
+with the so called 
+\emph on
+Milankovitch cycles 
+\emph default
+which describe how variations in the earth's astronomical parameters such
+ as orbital eccentricity, axial tilt and precession have a 
+\emph on
+cyclical effect
+\emph default
+ on the 
+\emph on
+incoming solar radiation.
+ 
+\emph default
+However, mathematical modelling reveals that such cyclical variations themselves
+ are not sufficient to drive glacial-interglacial state transitions.
+ To remove this paradox, scientists proposed the role played by 
+\emph on
+noise 
+\emph default
+which corresponds to random fluctuations in 
+\emph on
+insolation 
+\emph default
+from short term weather instabilities.
+ They reasoned that noise 
+\emph on
+and 
+\emph default
+the regular astronomical variations together might be the reason for the
+ periodicity of the ice ages.
+ This 
+\emph on
+cooperative effect 
+\emph default
+of noise with a periodic signal was termed 
+\emph on
+stochastic resonance.
+
+\emph default
+ Though numerical simulations have been succesful in partially validating
+ this hypothesis, the problem still stands to be solved more rigorously.
+ Nevertheless, stochastic resonance has given rise to numerous applications
+ in other fields including electronics, laser physics, biophysics, neuroscience,
+ etc.
+ Here, we simulate stochastic resonance for a toy system that 
+\emph on
+corresponds 
+\emph default
+to a simple 
+\emph on
+energy balance model 
+\emph default
+for the climate.
+ 
+\end_layout
+
+\begin_layout Subsection
+Literature survey
+\end_layout
+
+\begin_layout Standard
+Stochastic resonance was first proposed by an Italian group of scientists,
+ Roberto Benzi, Alfonso Sutera and Angelo Vulpiani in 1981.
+\begin_inset Formula $^{(1,2)}$
+\end_inset
+
+ The initial work was based on numerical simulations of a mathematical 
+\emph on
+energy balance model
+\emph default
+ with an analysis of the underyling 
+\emph on
+stochastic differential equations
+\emph default
+.
+ Rigorous theoretical results were developed later by Bruce Mcnamara and
+ Kurt Wiesenfeld in 1989.
+\begin_inset Formula $^{3}$
+\end_inset
+
+ The first experimental demonstration of stochastic resonance was shown
+ by Fauve and Heslot in 1983 using an electronic 
+\emph on
+Schmitt trigger.
+\emph default
+
+\begin_inset Formula $^{4}$
+\end_inset
+
+ Further experimental studies consisted of a variety of systems including
+ a ring laser, electrosensory apparatus of crayfish, etc but we do not list
+ them here.
+ Subsequent climatology simulations have demonstrated SR in 
+\emph on
+millenial-scale 
+\emph default
+climate variability during glacial times as opposed to the larger timescales
+ originally used (100ky).
+\begin_inset Formula $^{5}$
+\end_inset
+
+ For our simulations, we have chosen a review paper by Benzi.
+\begin_inset Formula $^{6}$
+\end_inset
+
+ For an introductory and popular science reading, we also refer to a 
+\emph on
+Scientific American 
+\emph default
+article published by Moss and Weisenfeld.
+\begin_inset Formula $^{7}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Objectives
+\end_layout
+
+\begin_layout Standard
+In this brief report, we first introduce a simple energy balance model (EBM)
+ used in standard climatology simulations.
+ Then, we state (without derivation) how this model can be mapped onto a
+ 
+\emph on
+quasipotential 
+\emph default
+which determines the time dynamics of the Earth' temperature.
+ We then choose appropriate simulation parameters and describe the computational
+ details of the algorithms used.
+ Finally, we show the results of the climatic (temperature) trajectory and
+ how white noise can amplify a weak signal and cause what corresponds to
+ glacial-interglacial transitions.
+ 
+\end_layout
+
+\begin_layout Section
+Methods and numerical details
+\end_layout
+
+\begin_layout Standard
+For this work, we use a simple energy balance model requiring a few parameters
+ to model the time dynamics of the 
+\emph on
+averaged Earth temperature
+\emph default
+ 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ Therefore, glacial and interglacial periods are characterized by a specific
+ value of 
+\emph on
+T.
+ 
+\emph default
+The rate of incoming solar radiation is given by the variable 
+\begin_inset Formula $R_{in}$
+\end_inset
+
+ and the rate of outgoing radiation by 
+\begin_inset Formula $R_{out}$
+\end_inset
+
+.
+ Reflection from the earth surface is accounted for by a parameter for 
+\emph on
+albedo 
+\emph default
+which we will call 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ In addition to the albedo, the outgoing radiation also consists of 
+\emph on
+infrared emission 
+\emph default
+from the earth surface which is given by the parameter 
+\begin_inset Formula $E_{I}$
+\end_inset
+
+ (rate of infrared emission).
+ The 
+\emph on
+difference 
+\emph default
+between incoming and outgoing rate of radiation must be equal to the rate
+ at which energy is pumped into the earth surface which can be calculated
+ from the 
+\emph on
+average thermal capacity/inertia 
+\begin_inset Formula $C_{E}$
+\end_inset
+
+
+\emph default
+ of the earth.
+ Putting all of the above paramters together, we can write a differential
+ equation for the average temperature as a function of time:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $C_{E}\frac{dT}{dt}=R_{in}-R_{out}$
+\end_inset
+
+ 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(1)
+\begin_inset Newline newline
+\end_inset
+
+This is simply an equation for the conservation of energy.
+ 
+\begin_inset Formula $R_{out}$
+\end_inset
+
+ consists of two terms, one for reflection due to albedo effects and another
+ for the infrared emission.
+ Thus, 
+\begin_inset Formula $R_{out}=\alpha R_{in}+E_{I}$
+\end_inset
+
+.
+ Substituting this in equation (1), we obtain
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $C_{E}\frac{dT}{dt}=R_{in}(1-\alpha)-E_{I}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(2)
+\begin_inset Newline newline
+\end_inset
+
+Both 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $E_{I}$
+\end_inset
+
+ depend on the temperature 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ The simplest approximation for the functional form of 
+\begin_inset Formula $\alpha(T)$
+\end_inset
+
+ and 
+\begin_inset Formula $E_{I}(T)$
+\end_inset
+
+ are shown in the diagram below:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ebm.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The yellow line corresponds to 
+\begin_inset Formula $R_{in}(1-\alpha)$
+\end_inset
+
+ and the red line corresponds to 
+\begin_inset Formula $E_{I}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+The 'climate' here corresponds to a 
+\emph on
+stationary solution 
+\emph default
+of equation (1) which means that 
+\begin_inset Formula $\frac{dT}{dt}=0$
+\end_inset
+
+.
+ Notice from figure 1 that stationary solutions correspond to the 
+\emph on
+intersections of the two curves.
+ 
+\emph default
+This is because at the points where the curves intersect, 
+\begin_inset Formula $R_{in}(1-\alpha)=E_{I}$
+\end_inset
+
+ and therefore 
+\begin_inset Formula $\frac{dT}{dt}=0$
+\end_inset
+
+.
+ The leftmost intersection point corresponds to the lowest temperature and
+ hence is called an 
+\emph on
+ice-cover earth.
+ 
+\emph default
+The warmest possible temperature (rightmost intersection point) is observed
+ to be close to the 
+\emph on
+current day 
+\emph default
+temperature.
+
+\emph on
+ 
+\emph default
+The intermediate temperature is 
+\emph on
+unstable (a small perturbation from it grows exponentially) 
+\emph default
+whereas the right and left temperatures are 
+\emph on
+stable (a small perturbation from it returns back to the original point)
+\emph default
+.
+ The small 
+\emph on
+orbital forcing 
+\emph default
+corresponding to the Milankovitch cycle (discussed in the introduction)
+ can be modelled as a small-amplitude sinusoidal variation in time of the
+ incoming radiation 
+\begin_inset Formula $R_{in}.$
+\end_inset
+
+ That is, 
+\begin_inset Formula $R_{in}(t)=R_{in}^{s}+A\cos(\omega t)$
+\end_inset
+
+.
+ This new form of 
+\begin_inset Formula $R_{in}(t)$
+\end_inset
+
+ can be substituted in equation (1) and the resulting effect analysed.
+ We state without proof here that introducing the above form of 
+\begin_inset Formula $R_{in}(t)$
+\end_inset
+
+ results in a deviation of about 
+\begin_inset Formula $0.5K$
+\end_inset
+
+ from the stationary state.
+ This is 
+\emph on
+much smaller 
+\emph default
+than the 
+\begin_inset Formula $10K$
+\end_inset
+
+ temperature change observed in paleoclimatic records.
+ In other words, the glacial-interglacial transition requires a temperature
+ change of 
+\begin_inset Formula $10K$
+\end_inset
+
+ but introducing a Milankovitch/orbital forcing only gives us a change of
+ 
+\begin_inset Formula $0.5K$
+\end_inset
+
+.
+ Thus, it is clear that 
+\emph on
+only orbital forcing cannot cause glacial-interglacial transitions.
+ 
+\emph default
+To account for the required temperature change, some modifications need
+ to be made to the model.
+ A 
+\emph on
+new form for the albedo 
+\emph default
+is taken which gives two more stationary solutions as shown in the following
+ diagram:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ebm1.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Modified energy balance model with a new albedo function.
+ Red curve is for 
+\begin_inset Formula $E_{I}$
+\end_inset
+
+ and the yellow curve is for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ As before, the intermediate temperature 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ is unstable.
+ Furthermore, from empirical observations, it is assumed that 
+\begin_inset Formula $T_{0}-T_{1}=10K$
+\end_inset
+
+ and 
+\begin_inset Formula $T_{0}-T_{i}=T_{i}-T_{1}$
+\end_inset
+
+.
+ Notice that we have not considered noise so far.
+ Hence, a 
+\emph on
+noise term 
+\emph default
+is added in the form of
+\emph on
+ 
+\emph default
+a 
+\emph on
+white noise 
+\begin_inset Formula $\eta(t)$
+\end_inset
+
+ with unit variance 
+\emph default
+(in other words, 
+\begin_inset Formula $\eta(t)$
+\end_inset
+
+
+\emph on
+ 
+\emph default
+is a 
+\emph on
+gaussian random variable).
+ 
+\emph default
+For simulation purposes, a 
+\emph on
+rescaling 
+\emph default
+of the variables makes the equations simple and a variable 
+\begin_inset Formula $X$
+\end_inset
+
+ is introduced as follows:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $T=T_{i}+\Delta TX$
+\end_inset
+
+ with 
+\begin_inset Formula $\Delta T=5K$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(3)
+\begin_inset Newline newline
+\end_inset
+
+Equation (1) can therefore be recast in terms of the variable 
+\begin_inset Formula $X$
+\end_inset
+
+ as follows (derivation not shown):
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\frac{dX}{dt}=X-X^{3}+A\sin(2\pi\nu_{0}t)+\sqrt{\sigma}\eta(t)$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+(4)
+\begin_inset Newline newline
+\end_inset
+
+The parameter 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is the 
+\emph on
+standard deviation 
+\emph default
+of the gaussian (white) noise.
+ Geometrically, equation (4) corresponds to 
+\emph on
+movement of a particle in a double-well potential.
+ 
+\emph default
+We call such a potential a 
+\emph on
+quasipotential or pseudo-potential.
+ 
+\emph default
+Intuitively, we can think of the earth as a particle sitting in one of the
+ wells (
+\begin_inset Formula $T_{0}$
+\end_inset
+
+ or 
+\begin_inset Formula $T_{1}$
+\end_inset
+
+) of the double-well potential.
+ For the variable 
+\begin_inset Formula $X$
+\end_inset
+
+ however, the wells lie at the points 
+\begin_inset Formula $X=+1$
+\end_inset
+
+ and 
+\begin_inset Formula $X=-1$
+\end_inset
+
+ respectively.
+ Adding a periodic drive (sinusoidal signal) to this well corresponds to
+ the 
+\emph on
+Milankovitch cycles 
+\emph default
+(oscillating 
+\begin_inset Formula $R_{in}$
+\end_inset
+
+ due to cyclical changes in earth's astronomical parameters).
+ The sinusoidal term alternatively 
+\emph on
+rasies and lowers the two wells in time.
+
+\emph default
+ Below, we show how the potential well is modulated by the sinusoidal signal:
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename well1.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename well2.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename well3.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The double well potential(left) Modulation of this potential by the sinusoidal
+ term (middle and right)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ Now if 
+\emph on
+only 
+\emph default
+the Milankovitch cycles are considered, it is like the particle oscillating
+ due to the sinusoidal drive but 
+\emph on
+unable to cross over to the other well.
+ 
+\emph default
+Adding a noise component to the drive however can induce 
+\emph on
+inter-well transitions.
+ 
+\emph default
+We show this result from our simulations in the next section.
+ 
+\end_layout
+
+\begin_layout Section
+Results and Discussion
+\end_layout
+
+\begin_layout Standard
+As was explained in the previous section, we can cast the energy balance
+ model into equation (4) which we then simulate.
+ Notice that the stochastic term 
+\begin_inset Formula $\eta(t)$
+\end_inset
+
+ makes a straightforward analytical integration impossible.
+ Equation (4) is a 
+\emph on
+stochastic differential equation.
+ 
+\emph default
+This means, analytically only the 
+\emph on
+probability distribution of 
+\begin_inset Formula $X$
+\end_inset
+
+ as a function of time 
+\emph default
+can be obtained.
+ We do not apply any analytical methods in this report.
+ We numerically integrate equation (4) using 
+\emph on
+the fourth order Runge- Kutta method.
+ 
+\emph default
+Below, we show the trajectory i.e.
+ 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ for a 
+\emph on
+subthreshold 
+\emph default
+value of 
+\begin_inset Formula $A$
+\end_inset
+
+ i.e.
+ a value which is not sufficient to cause inter-well transitions.
+ No noise is added.
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename subthreshold.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $X(t)$
+\end_inset
+
+ trajectory for 
+\begin_inset Formula $A=0.3$
+\end_inset
+
+, 
+\begin_inset Formula $\eta(t)=0$
+\end_inset
+
+, 
+\begin_inset Formula $\nu_{0}=0.005$
+\end_inset
+
+ Hz.
+ The green curve corresonds to the signal 
+\begin_inset Formula $A\sin(2\pi\nu_{0}t)$
+\end_inset
+
+ and the red curve corresponds the particle trajectory.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Notice that the particle 
+\emph on
+stays in the right well 
+\emph default
+(
+\begin_inset Formula $X=+1$
+\end_inset
+
+).
+ Adding 
+\emph on
+only noise 
+\emph default
+on the other hand also cannot cause inter-well transitions for low noise
+ intensities.
+ For high noise intensities, there are inter-well transitions but they are
+ totally random.
+ Below, we show the two cases:
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename noise_1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename noise_2.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Absence of inter-well transitions for low noise intensity 
+\begin_inset Formula $\sigma=0.5$
+\end_inset
+
+ (left) and random transitions for high noise intensity 
+\begin_inset Formula $\sigma=1.0$
+\end_inset
+
+ (right) The green line is the signal which here is taken to be a constant
+ (
+\begin_inset Formula $A=0$
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The remarkable effect of stochastic resonance arises when 
+\emph on
+both 
+\emph default
+a subthreshold (insufficient for inter-well transitions) periodic signal
+ and noise are superposed.
+ Below, we use a subthreshold signal (corresponding to orbital forcing)
+ 
+\begin_inset Formula $A=0.3$
+\end_inset
+
+ and add white noise to it (
+\begin_inset Formula $\sigma=0.5$
+\end_inset
+
+).
+ The noise 
+\emph on
+introduces a coherence between the response and the driving signal (by coherence
+ we mean the response mimics the driving signal).
+ 
+\emph default
+We also plot the 
+\emph on
+power spectrum 
+\emph default
+of the response which shows a 
+\emph on
+peak 
+\emph default
+at the signal frequency 
+\begin_inset Formula $\nu_{0}$
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename trajectory.png
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename power_spectrum.png
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+(Left) Noise induces inter-well transitions for a subthreshold signal with
+ 
+\begin_inset Formula $A=0.3$
+\end_inset
+
+, 
+\begin_inset Formula $\nu_{0}=0.005$
+\end_inset
+
+ Hz and 
+\begin_inset Formula $\sigma=0.8$
+\end_inset
+
+ .
+ Notice the coherence between the response (red) and the signal (green).
+ (Right) The power spectral density of the response as a function of frequency.
+ Notice the peak at 
+\begin_inset Formula $\nu_{0}=0.005$
+\end_inset
+
+ Hz corresponding to the signal frequency.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Stochastic resonance not only implies that adding noise increases the coherence
+ between the response and the driving signal but also that 
+\emph on
+there is an optimum noise intensity at which maximum coherence occurs.
+ 
+\emph default
+To show this, we run the simulation for 
+\emph on
+a range of noise intensities 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ 
+\emph default
+and observe the corresponding peak in the power spectrum (at 
+\begin_inset Formula $\nu_{0}$
+\end_inset
+
+).
+ The height of the peak which is the signal power is a good measure for
+ the degree to which the response carries the information in the signal.
+ Below, we show stochastic resonance for a subthreshold signal.
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename SR.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Stochastic resonance in a subthreshold signal with 
+\begin_inset Formula $A=0.3$
+\end_inset
+
+, 
+\begin_inset Formula $\nu_{0}=0.005$
+\end_inset
+
+ Hz, for a range of noise intensities.
+ Notice the peak at the optimum noise intensity 
+\begin_inset Formula $\sigma\sim1.1$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ An often used measure to quantify the degree of coherence between the response
+ and driving signal is the 
+\emph on
+Signal to Noise ratio (SNR).
+ 
+\emph default
+The SNR takes into account the background noise power as well and reflects
+ the degree of coherence 
+\emph on
+relative 
+\emph default
+to the noise present in the system.
+ Multiple definitions of the SNR are used.
+ We define it as 
+\emph on
+the ratio of the signal and noise power integrated on a small region around
+ the driving frequency 
+\begin_inset Formula $\nu_{0}$
+\end_inset
+
+.
+ 
+\emph default
+Specifically, if the signal power is given by 
+\begin_inset Formula $P_{s}(\nu$
+\end_inset
+
+) and the noise power is given by 
+\begin_inset Formula $P_{n}(\nu)$
+\end_inset
+
+ , then the SNR is defined as follows:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $SNR=10\log\left(\frac{{\displaystyle \int}_{\nu_{0}-\Delta\nu}^{\nu_{0}+\Delta\nu}P_{s}(\nu)d\nu}{\int_{\nu_{0}-\Delta\nu}^{\nu_{0}+\Delta\nu}P_{n}(\nu)d\nu}\right)$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Here, 
+\begin_inset Formula $\Delta\nu$
+\end_inset
+
+ is the small region around the driving frequency 
+\begin_inset Formula $\nu_{0}$
+\end_inset
+
+ in which the signal and noise powers are integrated.
+ The 
+\begin_inset Formula $SNR$
+\end_inset
+
+ is measured in 
+\emph on
+decibels (dB).
+ 
+\emph default
+Notice that the above definition of 
+\begin_inset Formula $SNR$
+\end_inset
+
+ is an approximation and the exact value is reached in the limit of 
+\begin_inset Formula $\Delta\nu$
+\end_inset
+
+ going to 
+\begin_inset Formula $0$
+\end_inset
+
+ .
+ Below, we plot the 
+\begin_inset Formula $SNR$
+\end_inset
+
+ as a function of noise intensity 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ .
+ Again, we notice a peak like behavior with the peak at the optimum noise
+ intensity.
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename snr.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Stochastic resonance in a subthreshold signal with 
+\begin_inset Formula $A=0.3$
+\end_inset
+
+, 
+\begin_inset Formula $\nu_{0}=0.005$
+\end_inset
+
+ Hz, for a range of noise intensities.
+ We have used 
+\begin_inset Formula $\Delta\nu=0.0015$
+\end_inset
+
+ Hz.
+ Notice the peak at the optimum noise intensity.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ An interesting observation we make is that 
+\emph on
+the optimum noise intensity can differ depending on the measure of coherence
+ used.
+ 
+\emph default
+Our simulations do not give a smooth peak when the SNR is plotted.
+ We suspect this to be happening because we have used only a 
+\emph on
+single run 
+\emph default
+for the simulation.
+ Instead, if we decide to use an 
+\emph on
+ensemble of simulation runs 
+\emph default
+and then plot the 
+\emph on
+average 
+\begin_inset Formula $SNR$
+\end_inset
+
+
+\emph default
+, we may obtain the required smooth behaviour.
+ To summarize, we have shown stochastic resonance for the energy balance
+ model in equation (1) when it is transformed into the equivalent problem
+ of a particle in a double-well potential.
+ We note that we have 
+\emph on
+not 
+\emph default
+used parameter values that 
+\emph on
+directly 
+\emph default
+correspond to the climate system (used by Benzi
+\begin_inset Formula $^{6}$
+\end_inset
+
+) but have chosen arbitrary but simple values for convenience of simulation.
+ Thus, noise plays a major role in increasing the 
+\emph on
+sensitivity 
+\emph default
+of climate models to a weak periodic signal.
+ We emphasize that rigorously establishing the role of stochastic resonance
+ in glaciation-interglaciation cycles will require accurate measurements
+ from several sources and additional simulations based on detailed and more
+ complex models.
+ 
+\end_layout
+
+\begin_layout Section
+Acknowledgements
+\end_layout
+
+\begin_layout Standard
+We wish to express thanks to Dr.
+ Ramachandra Prasad P of the 
+\emph on
+Lab for Spatial Informatics, IIIT Hyderabad 
+\emph default
+for his continued guidance and support during the course of this project.
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\begin_layout Standard
+[1] Benzi, R., Sutera, A.
+ & Vulpiani, A.
+ The mechanism of stochastic resonance.
+ 
+\emph on
+J.Phys.A: Math.Gen.
+ 
+\series bold
+\emph default
+14
+\series default
+, 453-457 (1981).
+\begin_inset Newline newline
+\end_inset
+
+[2] Benzi, R., Parisi, G., Sutera, A.
+ & Vulpiani, A.
+ Stochastic resonance in climatic change.
+ 
+\emph on
+Tellus.
+ 
+\series bold
+\emph default
+34
+\series default
+\emph on
+, 
+\emph default
+10-16 (1982).
+\begin_inset Newline newline
+\end_inset
+
+[3] McNamara, B.
+ & Wiesenfeld, K.
+ Theory of stochastic resonance.
+ 
+\emph on
+Phys.
+ Rev.
+ A.
+ 
+\series bold
+\emph default
+39
+\series default
+, 4854-4869 (1989).
+\begin_inset Newline newline
+\end_inset
+
+[4] Fauve, S.
+ & Heslot, F.
+ Stochastic resonance in a bistable system.
+ 
+\emph on
+Physics Letters.
+ 
+\series bold
+\emph default
+97A
+\series default
+(1,2), 5-7 (1983).
+\begin_inset Newline newline
+\end_inset
+
+[5] Ganopolski, A.
+ & Rahmstorf, S.
+ Abrupt glacial climate changes due to stochastic resonance.
+ 
+\emph on
+Phys.Rev.Lett.
+ 
+\series bold
+\emph default
+88
+\series default
+(3), 038501 (2002).
+\begin_inset Newline newline
+\end_inset
+
+[6] Benzi, R.
+ Stochastic resonance: from climate to biology.
+ 
+\emph on
+Collective phenomena in macroscopic systems.
+ 
+\emph default
+World Scientific, 77-95 (2007).
+\begin_inset Newline newline
+\end_inset
+
+[7] Moss, F.
+ & Wiesenfeld, K.
+ The benefits of background noise.
+ 
+\emph on
+Scientific American.
+ 
+\series bold
+\emph default
+273
+\series default
+(2), 66-69 (1995).
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

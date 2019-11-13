@@ -1,0 +1,12 @@
+Parameters for file 'SR_1.png'
+
+dt = 0.1
+T = 10000
+t = numpy.arange(0, T, dt)
+N = len(t)
+A = 0.3
+v0 = 0.005
+intensity = numpy.arange(0.5, 2.5, 0.05)
+freqs[2] - freqs[1] = 0.001
+
+noise for traj.png and psd.png = 0.5
